@@ -12,4 +12,4 @@ COPY . .
 EXPOSE 8080
 
 
-CMD ["gunicorn","--bind","0.0.0.0:8080","learning_log.wsgi:application"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
