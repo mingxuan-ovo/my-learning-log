@@ -8,8 +8,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# 设置启动脚本可执行权限
+RUN chmod +x start.sh
+
 
 EXPOSE 8080
 
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+CMD ["./start.sh"]
