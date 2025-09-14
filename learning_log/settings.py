@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5!vep+z9@$jo_q#=12e((4q%03%jj@h()kl1n(dwf3c3_8e6^t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://mylearninglog-186293-9-1378111308.sh.run.tcloudbase.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -131,3 +131,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 我的设置
 LOGIN_URL = 'users:login'
+
+# 添加CSRF信任的域名
+CSRF_TRYSTED_ORIGINS = [
+    'https://mylearninglog-186293-9-1378111308.sh.run.tcloudbase.com',
+]
+
+# 如果是HTTPS链接，启用安全的cookie
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# 允许的域名（确保这个已经设置）
+ALLOWED_HOSTS
