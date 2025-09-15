@@ -85,8 +85,8 @@ def edit_entry(request, entry_id):
         if form.is_valid():
             form.save()
             return redirect('learning_logs:topic',topic_id=topic.id)
-    conetxt = {'entry':entry, 'topic':topic, 'form':form}
-    return render(request, 'learning_logs/edit_entry.html',conetxt)
+    context = {'entry':entry, 'topic':topic, 'form':form}
+    return render(request, 'learning_logs/edit_entry.html',context)
 
 
 
