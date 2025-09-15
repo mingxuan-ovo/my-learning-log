@@ -71,22 +71,28 @@ def new_entry(request, topic_id):
 @login_required
 def edit_entry(request, entry_id):
     """编辑既有条目。"""
-    entry = Entry.objects.get(id=entry_id) 
-    topic = entry.topic
-    if topic.owner != request.user:
-        raise Http404
+    try:
+        entry = Entry.objects.get(id=entry_id) 
+        topic = entry.topic
+        if topic.owner != request.user:
+            raise Http404
 
-    if request.method != 'POST':
-        # 初次请求：使用当前条目填充表单。
-        form = EntryForm(instance=entry)  # # 请求方法为GET时执行的if代码块，使用实参 instance=entry 创建一个 EntryForm实例。这个实参让django创建一个表单，并用既有条目对象中的信息填充它。
-    else:
-        # POST提交的数据：对数据进行处理。
-        form = EntryForm(instance=entry, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('learning_logs:topic',topic_id=topic.id)
-    context = {'entry':entry, 'topic':topic, 'form':form}
-    return render(request, 'learning_logs/edit_entry.html',context)
+        if request.method != 'POST':
+            form = EntryForm(instance=entry)
+        else:
+            form = EntryForm(instance=entry, data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('learning_logs:topic',topic_id=topic.id)
+        
+        context = {'entry':entry, 'topic':topic, 'form':form}
+        return render(request, 'learning_logs/edit_entry.html', context)
+    
+    except Exception as e:
+        # 添加详细错误日志
+        print(f"Error in edit_entry: {str(e)}")
+        raise  # 重新抛出异常
+
 
 
 
